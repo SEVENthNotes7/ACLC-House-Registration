@@ -13,7 +13,6 @@ export const Home = () => {
   const getTodoAPI = async () => {
     try {
       const data = await axios.get(
-        //`https://apex.oracle.com/pls/apex/jao_workspace/todo/todos/${userData?.account_id}`
         `https://apex.oracle.com/pls/apex/cedrick_cs_workspace/ACLCHouseRegistrationMembers/GetAllListOfMembers`
       );
       return data.data.items;
@@ -24,7 +23,13 @@ export const Home = () => {
   };
 
   const delMembers = (id) => {
-    console.log(id);
+    try{
+      axios.delete(
+        `https://apex.oracle.com/pls/apex/cedrick_cs_workspace/ACLCHouseRegistrationMembers/RemoveMembers/${id}`
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const data = useQuery({
