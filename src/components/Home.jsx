@@ -13,8 +13,10 @@ export const Home = () => {
   const getTodoAPI = async () => {
     try {
       const data = await axios.get(
-        `https://apex.oracle.com/pls/apex/jao_workspace/todo/todos/${userData?.account_id}`
+        //`https://apex.oracle.com/pls/apex/jao_workspace/todo/todos/${userData?.account_id}`
+        `https://apex.oracle.com/pls/apex/cedrick_cs_workspace/ACLCHouseRegistrationMembers/GetAllListOfMembers`
       );
+      //console.log(data.data.items);
       return data.data.items;
     } catch (err) {
       console.log(err);
@@ -52,66 +54,33 @@ export const Home = () => {
   };
 
   return (
-    <div className="container-fluid" style={{ height: "100vh" }}>
-      <div className="row justify-content-center ">
-        <div className="col-3 d-flex justify-content-center align-items-center">
-          <div className="animal-img"></div>
-        </div>
-        <div className="col-5">
-          <div className="todo-container text-center ">
-            <div className="task-container overflow-auto px-4">
-              {data.isLoading && <h1>Loading...</h1>}
-              {data.data?.map((d) => {
-                if (d.status === 0) {
-                  return (
-                    <div className="row justify-content-center">
-                      <div
-                        className="todo-task col-10"
-                        onClick={() => toUpdate(d.todo_id, d.title)}
-                      >
-                        {d.title}
-                      </div>
-                      <div className="col-1 pt-3">
-                        <i
-                          className="task-checkbox bi bi-clipboard2-check"
-                          onClick={() => handleStatus(d.status, d.todo_id)}
-                        ></i>
-                      </div>
-                    </div>
-                  );
-                }
-                return (
-                  <div className="row justify-content-center">
-                    <div
-                      className="task-finished todo-task col-10"
-                      onClick={() => toUpdate(d.todo_id, d.title)}
-                    >
-                      {d.title}
-                    </div>
-                    <div className="col-1 pt-3">
-                      <i
-                        className="checkbox-finish task-checkbox bi bi-clipboard2-check"
-                        onClick={() => handleStatus(d.status, d.todo_id)}
-                      ></i>
-                    </div>
-                  </div>
-                );
-              })}
+    <div className="task-container overflow-auto px-4">
+      {data.isLoading && <h1>Loading...</h1>}
+      {data.data?.map((d) => {
+        console.log(d.members_id);
+        if (d.members_id !== 0) {
+          return (
+            <div className="row justify-content-center">
+              <div
+                className="task-finished todo-task col-10"
+                onClick={() => toUpdate(d.members_id)}
+              >
+                {d.members_id}
+              </div>
+              <div className="action">
+                <i
+                  onClick={() => navigate("/add")}
+                  className="btn-add-task bi bi-plus-circle-fill"
+                ></i>
+                <i
+                  onClick={() => navigate("/")}
+                  className="btn-logout bi bi-box-arrow-in-left"
+                ></i>
+              </div>
             </div>
-            <i
-              onClick={() => navigate("/add")}
-              className="btn-add-task bi bi-plus-circle-fill"
-            ></i>
-            <i
-              onClick={() => navigate("/")}
-              className="btn-logout bi bi-box-arrow-in-left"
-            ></i>
-          </div>
-        </div>
-        <div className="col-3 d-flex justify-content-center align-items-center">
-          <div className="animal-img"></div>
-        </div>
-      </div>
+          );
+        } 
+      })}
     </div>
   );
 };

@@ -1,0 +1,80 @@
+// const statusAPI = async (newStatus, id) => {
+  //   try {
+  //     await axios.put(
+  //       `https://apex.oracle.com/pls/apex/jao_workspace/todo/todo/status/${id}`,
+  //       newStatus
+  //     );
+  //     return true;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+
+// const handleStatus = async (status, id) => {
+  //   const data = {
+  //     status: status == true ? false : true,
+  //   };
+  //   await statusAPI(data, id);
+  // };
+
+  <div className="col-1 pt-3">
+                        <i
+                          className="task-checkbox bi bi-clipboard2-check"
+                          onClick={() => handleStatus(d.status, d.todo_id)}
+                        ></i>
+                      </div>
+
+                      <div className="col-1 pt-3">
+                      <i
+                        className="checkbox-finish task-checkbox bi bi-clipboard2-check"
+                        onClick={() => handleStatus(d.status, d.todo_id)}
+                      ></i>
+                    </div>
+
+                    
+
+
+
+                    <div className="task-container overflow-auto px-4">
+              {data.isLoading && <h1>Loading...</h1>}
+              {data.data?.map((d) => {
+                console.log(d.members_id);
+                if (d.members_id === 0) {
+                  return (
+                    <div className="row justify-content-center">
+                      <div
+                        className="todo-task col-10"
+                        onClick={() => toUpdate(d.members_id)}
+                      >
+                        {d.members_id}
+                      </div>
+                      <div className="col-1 pt-3">
+                        <i
+                          className="task-checkbox bi bi-clipboard2-check"
+                          onClick={() => handleStatus(d.members_id)}
+                        ></i>
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <div className="row justify-content-center">
+                    <div
+                      className="task-finished todo-task col-10"
+                      onClick={() => toUpdate(d.members_id)}
+                    >
+                      {d.members_id}
+                    </div>
+                    <div className="col-1 pt-3">
+                      <i
+                        className="checkbox-finish task-checkbox bi bi-clipboard2-check"
+                        onClick={() => handleStatus(d.members_id)}
+                      ></i>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            
