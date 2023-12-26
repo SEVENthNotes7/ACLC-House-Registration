@@ -16,23 +16,15 @@ export const Home = () => {
         //`https://apex.oracle.com/pls/apex/jao_workspace/todo/todos/${userData?.account_id}`
         `https://apex.oracle.com/pls/apex/cedrick_cs_workspace/ACLCHouseRegistrationMembers/GetAllListOfMembers`
       );
-      //console.log(data.data.items);
       return data.data.items;
     } catch (err) {
       console.log(err);
       return err;
     }
   };
-  const statusAPI = async (newStatus, id) => {
-    try {
-      await axios.put(
-        `https://apex.oracle.com/pls/apex/jao_workspace/todo/todo/status/${id}`,
-        newStatus
-      );
-      return true;
-    } catch (err) {
-      console.log(err);
-    }
+
+  const delMembers = (id) => {
+    console.log(id);
   };
 
   const data = useQuery({
@@ -46,41 +38,54 @@ export const Home = () => {
     setUpdateTitle(title);
     navigate("/update");
   };
-  const handleStatus = async (status, id) => {
-    const data = {
-      status: status == true ? false : true,
-    };
-    await statusAPI(data, id);
-  };
-
   return (
     <div className="task-container overflow-auto px-4">
       {data.isLoading && <h1>Loading...</h1>}
-      {data.data?.map((d) => {
-        console.log(d.members_id);
-        if (d.members_id !== 0) {
-          return (
-            <div className="row justify-content-center">
-              <div
-                className="task-finished todo-task col-10"
-                onClick={() => toUpdate(d.members_id)}
-              >
-                {d.members_id}
-              </div>
-              <div className="action">
-                <i
-                  onClick={() => navigate("/add")}
-                  className="btn-add-task bi bi-plus-circle-fill"
-                ></i>
-                <i
-                  onClick={() => navigate("/")}
-                  className="btn-logout bi bi-box-arrow-in-left"
-                ></i>
-              </div>
-            </div>
-          );
-        } 
-      })}
+      <h1 className="title">List of Members</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Year Level</th>
+            <th>Section</th>
+            <th>Date Registered</th>
+            <th>Date Updated</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        {data.data?.map((d) => {
+          if (d.members_id !== 0) {
+            return (
+              <tbody>
+                <tr>
+                  <td>{d.members_id}</td>
+                  <td>{d.first_name}</td>
+                  <td>{d.last_name}</td>
+                  <td>{d.email}</td>
+                  <td>{d.phone}</td>
+                  <td>{d.yearlevel}</td>
+                  <td>{d.section}</td>
+                  <td>{d.created_at}</td>
+                  <td>{d.updated_at}</td>
+                  <td><button onClick={() => delMembers(d.members_id)}>Delete</button><button onClick={() => toUpdate(d.members_id)}>Update</button></td>
+                </tr>
+              </tbody>
+            );
+          }
+        })}
+      </table>
+      <i
+        onClick={() => navigate("/add")}
+        className="btn-add-task bi bi-plus-circle-fill"
+      ></i>
+      <i
+        onClick={() => navigate("/")}
+        className="btn-logout bi bi-box-arrow-in-left"
+      ></i>
     </div>
   );
 };
