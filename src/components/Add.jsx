@@ -33,12 +33,6 @@ export const Add = () => {
   };
 
   const addMembers = async () => {
-    // console.log(first_name);
-    // console.log(last_name);
-    // console.log(email);
-    // console.log(phone);
-    // console.log(yearlevel);
-    // console.log(section);
     const member = {
       firstname: first_name,
       lastname: last_name,

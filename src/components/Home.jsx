@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const Home = () => {
   const navigate = useNavigate();
-  const { userData, updateId, setUpdateId} =
+  const { userData, setMemberID, setFirstName, setLastName, setEmail, setPhone, setYearLevel, setSection } =
     useContext(AppContext);
 
   const getAPI = async () => {
@@ -23,7 +23,7 @@ export const Home = () => {
   };
 
   const delMembers = (id) => {
-    try{
+    try {
       axios.delete(
         `https://apex.oracle.com/pls/apex/cedrick_cs_workspace/ACLCHouseRegistrationMembers/RemoveMembers/${id}`
       );
@@ -38,11 +38,17 @@ export const Home = () => {
     refetchInterval: 500,
   });
 
-  const toUpdate = (members_id) => {
-    console.log(members_id);
+  const toUpdate = (membersid, firstname, lastname, email, phone, yearlevel, section) => {
+    setMemberID(membersid);
+    setFirstName(firstname);
+    setLastName(lastname);
+    setEmail(email);
+    setPhone(phone);
+    setYearLevel(yearlevel);
+    setSection(section);
     navigate("/update");
   };
-  
+
   return (
     <div className="task-container overflow-auto px-4">
       {data.isLoading && <h1>Loading...</h1>}
@@ -50,7 +56,7 @@ export const Home = () => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Members ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -76,7 +82,7 @@ export const Home = () => {
                   <td>{d.section}</td>
                   <td>{d.created_at}</td>
                   <td>{d.updated_at}</td>
-                  <td><button onClick={() => delMembers(d.members_id)}>Delete</button><button onClick={() => toUpdate(d.members_id)}>Update</button></td>
+                  <td><button onClick={() => delMembers(d.members_id)}>Delete</button><button onClick={() => toUpdate(d.members_id, d.first_name, d.last_name, d.email, d.phone, d.yearlevel, d.section)}>Update</button></td>
                 </tr>
               </tbody>
             );
