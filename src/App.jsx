@@ -14,11 +14,15 @@ export const AppContext = createContext();
 
 function App() {
   const client = new QueryClient();
-
   const [userData, setUserData] = useState({});
-
-  const [updateTitle, setUpdateTitle] = useState("");
-  const [updateId, setUpdateId] = useState("");
+  // update Parameters.
+  const [members_id, setMemberID] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [yearlevel, setYearLevel] = useState("");
+  const [section, setSection] = useState("");
 
   return (
     <div className="App">
@@ -26,10 +30,20 @@ function App() {
         value={{
           userData,
           setUserData,
-          updateTitle,
-          setUpdateTitle,
-          updateId,
-          setUpdateId,
+          members_id,
+          setMemberID,
+          first_name,
+          setFirstName,
+          last_name,
+          setLastName,
+          email,
+          setEmail,
+          phone,
+          setPhone,
+          yearlevel,
+          setYearLevel,
+          section,
+          setSection,
         }}
       >
         <QueryClientProvider client={client}>

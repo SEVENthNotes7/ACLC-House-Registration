@@ -7,10 +7,10 @@ import { useQuery } from "@tanstack/react-query";
 
 export const Home = () => {
   const navigate = useNavigate();
-  const { userData, updateId, setUpdateId, setUpdateTitle } =
+  const { userData, updateId, setUpdateId} =
     useContext(AppContext);
 
-  const getTodoAPI = async () => {
+  const getAPI = async () => {
     try {
       const data = await axios.get(
         `https://apex.oracle.com/pls/apex/cedrick_cs_workspace/ACLCHouseRegistrationMembers/GetAllListOfMembers`
@@ -33,16 +33,16 @@ export const Home = () => {
   };
 
   const data = useQuery({
-    queryKey: ["todos"],
-    queryFn: getTodoAPI,
+    queryKey: ["query"],
+    queryFn: getAPI,
     refetchInterval: 500,
   });
 
-  const toUpdate = (todoId, title) => {
-    setUpdateId(todoId);
-    setUpdateTitle(title);
+  const toUpdate = (members_id) => {
+    console.log(members_id);
     navigate("/update");
   };
+  
   return (
     <div className="task-container overflow-auto px-4">
       {data.isLoading && <h1>Loading...</h1>}
