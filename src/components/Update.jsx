@@ -22,7 +22,7 @@ export const Update = () => {
     }
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async () => { 
     const data = {
       firstname: first_name,
       lastname: last_name,
