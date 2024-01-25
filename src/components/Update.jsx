@@ -6,7 +6,7 @@ import axios from "axios";
 
 export const Update = () => {
   const navigate = useNavigate();
-  const { members_id, first_name, setFirstName, last_name, setLastName, email, setEmail, phone, setPhone, yearlevel, setYearLevel, section, setSection } = useContext(AppContext);
+  const { members_id, first_name, setFirstName, last_name, setLastName, email, setEmail, phone, setPhone, yearlevel, setYearLevel, section, setSection, house, setHouse } = useContext(AppContext);
   const [response, setResponse] = useState("");
   const UpdateMembersDetails = async (updatePost) => {
     try {
@@ -21,6 +21,7 @@ export const Update = () => {
       return;
     }
   };
+  console.log(house);
 
   const handleUpdate = async () => { 
     const data = {
@@ -30,6 +31,7 @@ export const Update = () => {
       phone: phone,
       yearlevel: yearlevel,
       section: section,
+      house: house,
     };
     const status = await UpdateMembersDetails(data);
     status && navigate("/home");
@@ -91,6 +93,14 @@ export const Update = () => {
         placeholder="Update:"
         defaultValue={section}
         onChange={(e) => setSection(e.target.value)}
+      />
+      <input
+        id="update-input"
+        className="update-input w-100"
+        type="text"
+        placeholder="Update:"
+        defaultValue={house}
+        onChange={(e) => setHouse(e.target.value)}
       />
       <button
         className="btn-update-delete w-100"

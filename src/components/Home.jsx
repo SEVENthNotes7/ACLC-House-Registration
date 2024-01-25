@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const Home = () => {
   const navigate = useNavigate();
-  const { userData, setMemberID, setFirstName, setLastName, setEmail, setPhone, setYearLevel, setSection } =
+  const { userData, setMemberID, setFirstName, setLastName, setEmail, setPhone, setYearLevel, setSection, setHouse } =
     useContext(AppContext);
 
   const getAPI = async () => {
@@ -38,7 +38,7 @@ export const Home = () => {
     refetchInterval: 500,
   });
 
-  const toUpdate = (membersid, firstname, lastname, email, phone, yearlevel, section) => {
+  const toUpdate = (membersid, firstname, lastname, email, phone, yearlevel, section, house) => {
     setMemberID(membersid);
     setFirstName(firstname);
     setLastName(lastname);
@@ -46,6 +46,7 @@ export const Home = () => {
     setPhone(phone);
     setYearLevel(yearlevel);
     setSection(section);
+    setHouse(house);
     navigate("/update");
   };
 
@@ -63,6 +64,7 @@ export const Home = () => {
             <th>Phone</th>
             <th>Year Level</th>
             <th>Section</th>
+            <th>house</th>
             <th>Date Registered</th>
             <th>Date Updated</th>
             <th>Action</th>
@@ -80,9 +82,10 @@ export const Home = () => {
                   <td>{d.phone}</td>
                   <td>{d.yearlevel}</td>
                   <td>{d.section}</td>
+                  <td>{d.house_name}</td>
                   <td>{d.created_at}</td>
                   <td>{d.updated_at}</td>
-                  <td><button onClick={() => delMembers(d.members_id)}>Delete</button><button onClick={() => toUpdate(d.members_id, d.first_name, d.last_name, d.email, d.phone, d.yearlevel, d.section)}>Update</button></td>
+                  <td><button onClick={() => delMembers(d.members_id)}>Delete</button><button onClick={() => toUpdate(d.members_id, d.first_name, d.last_name, d.email, d.phone, d.yearlevel, d.section, d.house_name)}>Edit</button></td>
                 </tr>
               </tbody>
             );

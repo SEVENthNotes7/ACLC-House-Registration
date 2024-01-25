@@ -16,6 +16,7 @@ export const Add = () => {
   const [phone, setPhone] = useState("");
   const [yearlevel, setYearLevel] = useState("");
   const [section, setSection] = useState("");
+  const [house, setHouse] =useState("");
 
   const [response, setResponse] = useState("");
 
@@ -40,6 +41,7 @@ export const Add = () => {
       phone: phone,
       yearlevel: yearlevel,
       section: section,
+      house: house,
     };
     const status = await addAPI(member);
     status && navigate("/home");
@@ -90,6 +92,13 @@ export const Add = () => {
           type="text"
           placeholder="Section"
           onChange={(e) => setSection(e.target.value)}
+        />
+        <span>House</span>
+        <input
+          className="add-input w-100"
+          type="text"
+          placeholder="House"
+          onChange={(e) => setHouse(e.target.value)}
         />
         <button className="btn-add w-100" onClick={addMembers}>
           Add

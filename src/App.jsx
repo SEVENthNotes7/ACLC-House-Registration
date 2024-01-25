@@ -23,6 +23,7 @@ function App() {
   const [phone, setPhone] = useState("");
   const [yearlevel, setYearLevel] = useState("");
   const [section, setSection] = useState("");
+  const [house, setHouse] =useState("");
 
   return (
     <div className="App">
@@ -44,6 +45,8 @@ function App() {
           setYearLevel,
           section,
           setSection,
+          house,
+          setHouse,
         }}
       >
         <QueryClientProvider client={client}>
